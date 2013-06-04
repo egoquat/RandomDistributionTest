@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Texture">
+      <UniqueIdentifier>{945fbfbd-567e-4798-a109-b873af27e00b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Application">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Application\BitmapTexture.cpp">
+      <Filter>Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\FilePathUtil.cpp">
+      <Filter>Application</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Main.cpp">
+      <Filter>Application</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Application\BitmapTexture.h">
+      <Filter>Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Common.h">
+      <Filter>Application</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\FilePathUtil.h">
+      <Filter>Application</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\RandomWell512.h">
+      <Filter>Application</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Singleton.h">
+      <Filter>Application</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
