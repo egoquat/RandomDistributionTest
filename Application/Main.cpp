@@ -54,7 +54,7 @@ int main()
 			{
 				for(UINT ibuf = 0; ibuf < bitmaptexture.GetBufferSize(); ++ibuf)
 				{
-					color = rand() % colorRange;
+					color = rand() % (colorRange + 1);
 					bitmaptexture.SetColor(ibuf, CBitmapTexture::SET_COLOR_ARGB(0, 0, color, 0));
 					variance.SetData(ibuf, color);
 				}
@@ -64,7 +64,7 @@ int main()
 			{
 				for(UINT ibuf = 0; ibuf < bitmaptexture.GetBufferSize(); ++ibuf)
 				{
-					color = randomWell512.GetValue(0, colorRange);
+					color = randomWell512.GetValue(0, colorRange + 1);
 					bitmaptexture.SetColor(ibuf, CBitmapTexture::SET_COLOR_ARGB(0, 0, color, 0));
 					variance.SetData(ibuf, color);
 				}
@@ -93,7 +93,7 @@ int main()
 			+ "),variance(" 
 			+ std::to_string(static_cast<LONGLONG>(variance.getVariance()))+"),StandardDeviation(" 
 			+ std::to_string(static_cast<LONGLONG>(variance.getStandardDeviation()))+"),CountOf'0'("
-			+ std::to_string(static_cast<LONGLONG>(variance.getCountData(0))) +")" +  "\n");
+			+ std::to_string(static_cast<LONGLONG>(variance.getCountData(colorRange))) +")" +  "\n");
 		textMeasure.append(text);
 	}
 
