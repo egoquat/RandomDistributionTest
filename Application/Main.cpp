@@ -93,7 +93,7 @@ int main()
 			+ "),variance(" 
 			+ std::to_string(static_cast<LONGLONG>(variance.getVariance()))+"),StandardDeviation(" 
 			+ std::to_string(static_cast<LONGLONG>(variance.getStandardDeviation()))+"),CountOf'0'("
-			+ std::to_string(static_cast<LONGLONG>(variance.getCountData(colorRange))) +")" +  "\n");
+			+ std::to_string(static_cast<LONGLONG>(variance.getCountData(0))) +")" +  "\n");
 		textMeasure.append(text);
 	}
 
