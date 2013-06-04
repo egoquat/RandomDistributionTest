@@ -1,9 +1,6 @@
 #pragma once
-
 #include "Common.h"
-
 #include "Singleton.h"
-
 #include <string.h>
 
 class CFilePathUtil : public CSingleton< CFilePathUtil >

@@ -2,9 +2,11 @@
 #include "Common.h"
 #include "RandomWell512.h"
 #include "BitmapTexture.h"
+#include "VarianceHelper.h"
 
 int main()
 {
+	const UINT colorRange = 255;
 	int textureResolution = -1;
 	enum RANDOMTYPE { RANDOMTYPE_INTERNAL, RANDOMTYPE_WELL512, RANDOMTYPE_COUNT };
 
@@ -14,17 +16,18 @@ int main()
 	RandomWell512 randomWell512;
 	CBitmapTexture *bitmapTable = new CBitmapTexture[countRandomType];
 	string* savedFileTable = new string[countRandomType];
+	CVarianceHelper<UINT>* varianceTable = new CVarianceHelper<UINT>[countRandomType];
 
 	string inputText = "";
-	int inputTextureResolution = -1;
+	int resolution = -1;
 	while(1)
 	{
 		cout << "\nInput texture resolution(1~2048):";
 		cin >> inputText;
-		inputTextureResolution = atoi(inputText.c_str());
-		if(0<inputTextureResolution && 2048>=inputTextureResolution)
+		resolution = atoi(inputText.c_str());
+		if(0<resolution && 2048>=resolution)
 		{
-			textureResolution = inputTextureResolution;
+			textureResolution = resolution;
 			break;
 		}
 		else
@@ -33,13 +36,17 @@ int main()
 		}
 	}
 
-	for(int irandom = 0; irandom < countRandomType; ++irandom)
+	for(int irand = 0; irand < countRandomType; ++irand)
 	{
-		RANDOMTYPE randomtype = static_cast<RANDOMTYPE>(irandom);
-		CBitmapTexture &bitmaptexture = bitmapTable[irandom];
-		bitmaptexture.Initialize( randomNameTable[irandom].c_str(), textureResolution );
+		RANDOMTYPE randomtype = static_cast<RANDOMTYPE>(irand);
 
-		UINT colorRandom = 0;
+		CBitmapTexture& bitmaptexture = bitmapTable[irand];
+		CVarianceHelper<UINT>& variance = varianceTable[irand];
+
+		bitmaptexture.Initialize( randomNameTable[irand].c_str(), textureResolution );
+		variance.Initialize(bitmaptexture.GetBufferSize());
+
+		UINT color = 0;
 
 		switch(randomtype)
 		{
@@ -47,8 +54,9 @@ int main()
 			{
 				for(UINT ibuf = 0; ibuf < bitmaptexture.GetBufferSize(); ++ibuf)
 				{
-					colorRandom = rand() % 255;
-					bitmaptexture.SetColor(ibuf, CBitmapTexture::SET_COLOR_ARGB(0, colorRandom, 0, 0));
+					color = rand() % colorRange;
+					bitmaptexture.SetColor(ibuf, CBitmapTexture::SET_COLOR_ARGB(0, 0, color, 0));
+					variance.SetData(ibuf, color);
 				}
 			}
 			break;
@@ -56,27 +64,44 @@ int main()
 			{
 				for(UINT ibuf = 0; ibuf < bitmaptexture.GetBufferSize(); ++ibuf)
 				{
-					colorRandom = randomWell512.GetValue(0, 255);
-					bitmaptexture.SetColor(ibuf, CBitmapTexture::SET_COLOR_ARGB(0, colorRandom, 0, 0));
+					color = randomWell512.GetValue(0, colorRange);
+					bitmaptexture.SetColor(ibuf, CBitmapTexture::SET_COLOR_ARGB(0, 0, color, 0));
+					variance.SetData(ibuf, color);
 				}
 			}
 			break;
 		}
 
 		bitmaptexture.SaveBitmap();
-		savedFileTable[irandom] = bitmaptexture.GetFileName();
+		savedFileTable[irand] = bitmaptexture.GetFileName();
 
 		bitmaptexture.Release();
-	}
 
+		variance.Calculate();
+	}
 
 	char szFilePath[2048];
 	char szCurrentDirectory[1024];
 	GetCurrentDirectory(1024, szCurrentDirectory);
+	string textMeasure = "";
+	for(int i=0; i<countRandomType; ++i)
+	{
+		CVarianceHelper<UINT> &variance = varianceTable[i];
+		string text(savedFileTable[i] + " \n : avg(0~"
+			+std::to_string(static_cast<LONGLONG>(colorRange))+")("
+			+ std::to_string(static_cast<LONGLONG>(variance.getAverage())) 
+			+ "),variance(" 
+			+ std::to_string(static_cast<LONGLONG>(variance.getVariance()))+"),StandardDeviation(" 
+			+ std::to_string(static_cast<LONGLONG>(variance.getStandardDeviation()))+"),CountOf'0'("
+			+ std::to_string(static_cast<LONGLONG>(variance.getCountData(0))) +")" +  "\n");
+		textMeasure.append(text);
+	}
 
-	string textSuccessed("Open saved texture file? (" 
+	string textSuccessed("Open saved texture file(" 
 		+ std::to_string(static_cast<LONGLONG>(countRandomType)) 
-		+ "EA)\n" + szCurrentDirectory + "\\");
+		+ "EA)?\n" + textMeasure		
+		+ "\n"
+		+ szCurrentDirectory + "\\");
 
 	if(IDYES == MessageBox(NULL, (textSuccessed.c_str()), "Saved BitmapTexture.", MB_YESNO))
 	{
@@ -88,6 +113,10 @@ int main()
 		
 		ShellExecute(NULL, "open", szCurrentDirectory, NULL, NULL, SW_SHOWDEFAULT);
 	}
+
+	delete[] bitmapTable;
+	delete[] savedFileTable;
+	delete[] varianceTable;
 
 	return EXIT_SUCCESS;
 }

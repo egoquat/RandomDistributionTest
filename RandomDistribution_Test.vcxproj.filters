@@ -8,33 +8,39 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
+    <Filter Include="Common">
+      <UniqueIdentifier>{b494b2dd-bb6c-4564-b70b-2c3d9be113d7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application\BitmapTexture.cpp">
       <Filter>Texture</Filter>
     </ClCompile>
-    <ClCompile Include="Application\FilePathUtil.cpp">
-      <Filter>Application</Filter>
-    </ClCompile>
     <ClCompile Include="Application\Main.cpp">
       <Filter>Application</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\FilePathUtil.cpp">
+      <Filter>Common</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application\BitmapTexture.h">
       <Filter>Texture</Filter>
     </ClInclude>
-    <ClInclude Include="Application\Common.h">
-      <Filter>Application</Filter>
-    </ClInclude>
-    <ClInclude Include="Application\FilePathUtil.h">
-      <Filter>Application</Filter>
-    </ClInclude>
     <ClInclude Include="Application\RandomWell512.h">
       <Filter>Application</Filter>
     </ClInclude>
+    <ClInclude Include="Application\FilePathUtil.h">
+      <Filter>Common</Filter>
+    </ClInclude>
     <ClInclude Include="Application\Singleton.h">
-      <Filter>Application</Filter>
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Common.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\VarianceHelper.h">
+      <Filter>Common</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

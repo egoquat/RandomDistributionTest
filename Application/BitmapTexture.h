@@ -1,5 +1,4 @@
 #pragma once
-
 #include <stdio.h>
 #include <string>
 #include "FilePathUtil.h"
@@ -116,7 +115,7 @@ private:
 
 		if(FALSE==ISNULL(buffer_out)) { SAFEDELETE_ARRAY(buffer_out); }
 		if(TRUE==ISNULL(argb)) {	assert(0); return FALSE;}
-		buffer_out = new BYTE[];
+		buffer_out = new BYTE[_uiBitmapBufferSize];
 
 		for( UINT uiX = 0; uiX < width; ++uiX )
 		{

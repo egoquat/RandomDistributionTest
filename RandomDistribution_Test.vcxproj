@@ -21,6 +21,7 @@
     <ClInclude Include="Application\FilePathUtil.h" />
     <ClInclude Include="Application\RandomWell512.h" />
     <ClInclude Include="Application\Singleton.h" />
+    <ClInclude Include="Application\VarianceHelper.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{2F7CF597-49A4-4072-8559-51CCE057F4A7}</ProjectGuid>

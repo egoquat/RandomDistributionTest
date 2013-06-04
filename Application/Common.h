@@ -1,8 +1,6 @@
 #pragma once
-
 //#pragma warning ( disable : 4305 4503 4786 4291 4312 4311 4267 4244 4355 )
 //#pragma warning ( disable : 4305 4503 4786 4291 4312 4311 4267 4244 4355 4996 4819)
-
 #include <windows.h>
 
 #ifndef NULL
