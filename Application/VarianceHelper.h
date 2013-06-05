@@ -61,7 +61,7 @@ public:
 		}
 
 		_variance = differSum / _countData;
-		_standardDeviation = sqrt(static_cast<double>(_variance));
+		_standardDeviation = static_cast<T>(sqrt(static_cast<double>(_variance)));
 	}
 
 	void Release()
@@ -81,6 +81,11 @@ public:
 		_average = 0;
 		_variance = 0;
 		_standardDeviation = 0;
+	}
+
+	~CVarianceHelper()
+	{
+		Release();
 	}
 };
 

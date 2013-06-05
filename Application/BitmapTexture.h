@@ -42,6 +42,7 @@ public:
 	}
 
 private:
+	//# Private Functions
 	BOOL SetWidth(UINT width) 
 	{
 		BOOL validation = width <= MAXIMUM_BITMAP_SQRT && width > 0;
@@ -81,7 +82,6 @@ private:
 		return TRUE;
 	}
 
-	//# Private Functions
 	BOOL SaveBitmap(char* bitmapFileName, BYTE *arby1DColors, UINT uiWidth, int uiHeight);
 	void ConvertARGBToBitmap( const UINT *aruiSrcColor, UINT uiWidth, UINT uiHeight,BYTE *arbyDstColor );
 	void NamingBitmapFile( const char* fileName_in, char* fileName_out )
@@ -91,7 +91,7 @@ private:
 		m_pFilePathUtil = m_pFilePathUtil->GetThis();
 		if( TRUE == m_pFilePathUtil->ExtractFileEx_( fileName_in, szFileEx ) )
 		{
-			if( 0 != strcmp( strlwr(szFileEx), TEXT("bmp") ) )
+			if( 0 != strcmp( _strlwr(szFileEx), TEXT("bmp") ) )
 			{
 				sprintf( fileName_out, "%s.bmp", fileName_in );
 			}
@@ -105,7 +105,6 @@ private:
 			sprintf( fileName_out, "%s.bmp", fileName_in );
 		}
 	}
-
 
 	BOOL FillupArgbToBitmap(const UINT* argb, UINT width, UINT height, BYTE* buffer_out)
 	{

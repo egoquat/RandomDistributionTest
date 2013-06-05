@@ -1,41 +1,41 @@
 #include ".\bitmaptexture.h"
 
-BOOL CBitmapTexture::SaveBitmap(char* lpszFileName, BYTE *bitmapColors, UINT uiWidth, int uiHeight)
+BOOL CBitmapTexture::SaveBitmap(char* lpszFileName, BYTE *bmpColorBuffers, UINT uiWidth, int uiHeight)
 {
 	DWORD dwSizeImage;
 
 	//int nColorTableEntries = 256;
 	int nColorTableEntries = 0;
 
-	// bmp Info Header
-	LPBITMAPINFOHEADER bitmapBuffer;				// buffer containing the BITMAPINFOHEADER
+	// 1.bmp Info Header
+	LPBITMAPINFOHEADER bmpInfoHeader;				// buffer containing the BITMAPINFOHEADER
 
-	bitmapBuffer = (LPBITMAPINFOHEADER) new char[sizeof(BITMAPINFOHEADER) + sizeof(RGBQUAD) * nColorTableEntries];
-	bitmapBuffer->biSize = sizeof(BITMAPINFOHEADER);
-	bitmapBuffer->biWidth = uiWidth;		
-	bitmapBuffer->biHeight = uiHeight;		
-	bitmapBuffer->biPlanes = 1;				
-	bitmapBuffer->biBitCount = 24;					// 8bit (GRAY LAVEL 사용) 씩 3개의 bit
-	bitmapBuffer->biCompression = BI_RGB;			// RGB모드
-	bitmapBuffer->biSizeImage = uiWidth*uiHeight*3; 
-	bitmapBuffer->biXPelsPerMeter = 0;				// 이미지의 가로 해상도
-	bitmapBuffer->biYPelsPerMeter = 0;				// 이미지의 세로 해상도
-	bitmapBuffer->biClrUsed = 0;					// 256 색상 사용
-	bitmapBuffer->biClrImportant = 0;				// 중요한 색상 개수
+	bmpInfoHeader = (LPBITMAPINFOHEADER) new char[sizeof(BITMAPINFOHEADER) + sizeof(RGBQUAD) * nColorTableEntries];
+	bmpInfoHeader->biSize = sizeof(BITMAPINFOHEADER);
+	bmpInfoHeader->biWidth = uiWidth;		
+	bmpInfoHeader->biHeight = uiHeight;		
+	bmpInfoHeader->biPlanes = 1;				
+	bmpInfoHeader->biBitCount = 24;					// 8bit (GRAY LAVEL 사용) 씩 3개의 bit
+	bmpInfoHeader->biCompression = BI_RGB;			// RGB모드
+	bmpInfoHeader->biSizeImage = uiWidth * uiHeight * 3; 
+	bmpInfoHeader->biXPelsPerMeter = 0;				// 이미지의 가로 해상도
+	bmpInfoHeader->biYPelsPerMeter = 0;				// 이미지의 세로 해상도
+	bmpInfoHeader->biClrUsed = 0;					// 256 색상 사용
+	bmpInfoHeader->biClrImportant = 0;				// 중요한 색상 개수
 
-	dwSizeImage = bitmapBuffer->biSizeImage;		// 이미지 사이즈 정보    
+	dwSizeImage = bmpInfoHeader->biSizeImage;		// 이미지 사이즈 정보    
 
-	BITMAPFILEHEADER bmfh;							// Header Bitmap
-
-	bmfh.bfType = 0x4d42;							// 'BM' -> BMP 파일을 의미
+	// 2.bmp File Header
+	BITMAPFILEHEADER bmpFileHeader;							
+	bmpFileHeader.bfType = 0x4d42;							// 'BM' -> BMP 파일을 의미
 
 	// size of Buffer + header
 	int nSize = sizeof(BITMAPINFOHEADER) + sizeof(RGBQUAD) * nColorTableEntries + dwSizeImage;
-	bmfh.bfSize = nSize + sizeof(BITMAPFILEHEADER); 
-	bmfh.bfReserved1 = bmfh.bfReserved2 = 0;  
+	bmpFileHeader.bfSize = nSize + sizeof(BITMAPFILEHEADER); 
+	bmpFileHeader.bfReserved1 = bmpFileHeader.bfReserved2 = 0;  
 
 	//	실제 저장 공간 주소까지의 오프셋 사이즈
-	bmfh.bfOffBits = sizeof(BITMAPFILEHEADER) + sizeof(BITMAPINFOHEADER) + sizeof(RGBQUAD) * nColorTableEntries; 
+	bmpFileHeader.bfOffBits = sizeof(BITMAPFILEHEADER) + sizeof(BITMAPINFOHEADER) + sizeof(RGBQUAD) * nColorTableEntries; 
 
 	FILE* pStream = NULL;
 	int errorno = fopen_s(&pStream, lpszFileName,"wb");
@@ -47,15 +47,15 @@ BOOL CBitmapTexture::SaveBitmap(char* lpszFileName, BYTE *bitmapColors, UINT uiW
 		return FALSE;
 	}
 
-	fwrite( &bmfh, sizeof(BITMAPFILEHEADER), 1, pStream );
-	fwrite( bitmapBuffer, sizeof(BITMAPINFOHEADER), 1, pStream );
-	fwrite( (LPBYTE) bitmapColors, bitmapBuffer->biSizeImage, 1, pStream );
+	fwrite( &bmpFileHeader, sizeof(BITMAPFILEHEADER), 1, pStream );
+	fwrite( bmpInfoHeader, sizeof(BITMAPINFOHEADER), 1, pStream );
+	fwrite( (LPBYTE) bmpColorBuffers, bmpInfoHeader->biSizeImage, 1, pStream );
 
 	fclose(pStream);
 
 	pStream = 0;
 
-	delete [] bitmapBuffer;   
+	delete [] bmpInfoHeader;   
 
 	return TRUE;    
 }

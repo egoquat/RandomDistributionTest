@@ -95,6 +95,7 @@ int main()
 			+ std::to_string(static_cast<LONGLONG>(variance.getStandardDeviation()))+"),CountOf'0'("
 			+ std::to_string(static_cast<LONGLONG>(variance.getCountData(0))) +")" +  "\n");
 		textMeasure.append(text);
+		variance.Release();
 	}
 
 	string textSuccessed("Open saved texture file(" 
