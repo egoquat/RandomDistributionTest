@@ -1,9 +1,9 @@
 #pragma once
 #include "Common.h"
-#include "Singleton.h"
+#include "Singleton_.h"
 #include <string.h>
 
-class CFilePathUtil : public CSingleton< CFilePathUtil >
+class CFilePathUtil : public CSingleton_< CFilePathUtil >
 {
 public:
 	char buf[DEFAULT_FILEPATH];

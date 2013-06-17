@@ -11,6 +11,9 @@
     <Filter Include="Common">
       <UniqueIdentifier>{b494b2dd-bb6c-4564-b70b-2c3d9be113d7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Profiler">
+      <UniqueIdentifier>{b52b5260-9d0c-46bc-aa0f-28d1c303e9ba}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application\BitmapTexture.cpp">
@@ -22,24 +25,51 @@
     <ClCompile Include="Application\FilePathUtil.cpp">
       <Filter>Common</Filter>
     </ClCompile>
+    <ClCompile Include="Application\Profiler\Profiler.cpp">
+      <Filter>Profiler</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Profiler\ProfileUnit.cpp">
+      <Filter>Profiler</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Profiler\Clock.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application\BitmapTexture.h">
       <Filter>Texture</Filter>
     </ClInclude>
-    <ClInclude Include="Application\RandomWell512.h">
-      <Filter>Application</Filter>
-    </ClInclude>
     <ClInclude Include="Application\FilePathUtil.h">
-      <Filter>Common</Filter>
-    </ClInclude>
-    <ClInclude Include="Application\Singleton.h">
       <Filter>Common</Filter>
     </ClInclude>
     <ClInclude Include="Application\Common.h">
       <Filter>Common</Filter>
     </ClInclude>
     <ClInclude Include="Application\VarianceHelper.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Profiler\Profiler.h">
+      <Filter>Profiler</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Profiler\ProfileUnit.h">
+      <Filter>Profiler</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Profiler\Array_.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Profiler\Clock.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Profiler\FileIO_.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Profiler\Singleton_.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Profiler\CommonUtil_.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\RandomWell512.h">
       <Filter>Common</Filter>
     </ClInclude>
   </ItemGroup>

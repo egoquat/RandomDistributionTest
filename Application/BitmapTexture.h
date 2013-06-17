@@ -1,6 +1,7 @@
 #pragma once
 #include <stdio.h>
 #include <string>
+#include <assert.h>
 #include "FilePathUtil.h"
 
 #define MAXIMUM_BITMAP_SQRT 2048
