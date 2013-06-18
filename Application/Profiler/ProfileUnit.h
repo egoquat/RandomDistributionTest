@@ -64,7 +64,10 @@ public:
 							float *pfAve_ms_GrandTotal,
 							unsigned long *pulAve_tick_GrandTotal );
 
-	float ResultProfileMSTime() { return m_fAve_ms_GrandTotal; }
+	float ResultProfileMSTime() 
+	{ 
+		return m_fAve_ms_GrandTotal; 
+	}
 	void OutputDebugResultText();
 	void ResultText( char *szTextResult );
 	void ResultText_Avg( char *szTextResult );

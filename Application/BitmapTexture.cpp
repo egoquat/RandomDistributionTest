@@ -143,7 +143,7 @@ BOOL CBitmapTexture::Release()
 	_filledUpByteColor = FALSE;
 	_filledUpUintColor = FALSE;
 
-//	m_pFilePathUtil->DestroyThis();
+	m_pFilePathUtil->DestroyThis();		
 
 	return TRUE;
 }

@@ -17,7 +17,6 @@
 int main()
 {
 	_CrtSetDbgFlag ( _CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF );
-
 	//_CrtSetBreakAlloc( 160 );
 
 	const UINT colorRange = 255;
@@ -30,7 +29,7 @@ int main()
 
 	BOOL againTest = FALSE;
 
-	//do
+	/// Logic
 	{
 		CBitmapTexture *bitmapTable = new CBitmapTexture[countRandomType];
 		string* savedFileTable = new string[countRandomType];
@@ -103,6 +102,7 @@ int main()
 
 			variance.Calculate();
 		}
+		profiler->TotalEnd();
 
 		char szFilePath[2048];
 		char szCurrentDirectory[1024];
@@ -139,19 +139,16 @@ int main()
 
 			ShellExecute(NULL, "open", szCurrentDirectory, NULL, NULL, SW_SHOWDEFAULT);
 		}
-
-		profiler->TotalEnd();
 		profiler->DestroyThis();
 
 		delete[] bitmapTable;
 		delete[] savedFileTable;
 		delete[] varianceTable;
+	} 
 
-		/*int iAgain = 0;
-		cout << "Again test? (1:Yes/other:No)";
-		cin >> iAgain;
-		againTest = (1==iAgain);*/
-	} //while(againTest);
+	/*string outputMemoryLeaks = "Memory Leak? " 
+	+ std::to_string(static_cast<LONGLONG>(_CrtDumpMemoryLeaks()));
+	MessageBox(NULL, outputMemoryLeaks.c_str(), "MemoryLeak", MB_OK);*/
 
 	return EXIT_SUCCESS;
 }
