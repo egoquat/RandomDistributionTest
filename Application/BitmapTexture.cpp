@@ -8,22 +8,22 @@ BOOL CBitmapTexture::SaveBitmap(char* lpszFileName, BYTE *bmpColorBuffers, UINT 
 	int nColorTableEntries = 0;
 
 	// 1.bmp Info Header
-	LPBITMAPINFOHEADER bmpInfoHeader;				// buffer containing the BITMAPINFOHEADER
+	LPBITMAPINFOHEADER bmpHeader;				// buffer containing the BITMAPINFOHEADER
 
-	bmpInfoHeader = (LPBITMAPINFOHEADER) new char[sizeof(BITMAPINFOHEADER) + sizeof(RGBQUAD) * nColorTableEntries];
-	bmpInfoHeader->biSize = sizeof(BITMAPINFOHEADER);
-	bmpInfoHeader->biWidth = uiWidth;		
-	bmpInfoHeader->biHeight = uiHeight;		
-	bmpInfoHeader->biPlanes = 1;				
-	bmpInfoHeader->biBitCount = 24;					// 8bit (GRAY LAVEL 사용) 씩 3개의 bit
-	bmpInfoHeader->biCompression = BI_RGB;			// RGB모드
-	bmpInfoHeader->biSizeImage = uiWidth * uiHeight * 3; 
-	bmpInfoHeader->biXPelsPerMeter = 0;				// 이미지의 가로 해상도
-	bmpInfoHeader->biYPelsPerMeter = 0;				// 이미지의 세로 해상도
-	bmpInfoHeader->biClrUsed = 0;					// 256 색상 사용
-	bmpInfoHeader->biClrImportant = 0;				// 중요한 색상 개수
+	bmpHeader = (LPBITMAPINFOHEADER) new char[sizeof(BITMAPINFOHEADER) + sizeof(RGBQUAD) * nColorTableEntries];
+	bmpHeader->biSize = sizeof(BITMAPINFOHEADER);
+	bmpHeader->biWidth = uiWidth;		
+	bmpHeader->biHeight = uiHeight;		
+	bmpHeader->biPlanes = 1;				
+	bmpHeader->biBitCount = 24;					// 8bit (GRAY LAVEL 사용) 씩 3개의 bit
+	bmpHeader->biCompression = BI_RGB;			// RGB모드
+	bmpHeader->biSizeImage = uiWidth * uiHeight * 3; 
+	bmpHeader->biXPelsPerMeter = 0;				// 이미지의 가로 해상도
+	bmpHeader->biYPelsPerMeter = 0;				// 이미지의 세로 해상도
+	bmpHeader->biClrUsed = 0;					// 256 색상 사용
+	bmpHeader->biClrImportant = 0;				// 중요한 색상 개수
 
-	dwSizeImage = bmpInfoHeader->biSizeImage;		// 이미지 사이즈 정보    
+	dwSizeImage = bmpHeader->biSizeImage;		// 이미지 사이즈 정보    
 
 	// 2.bmp File Header
 	BITMAPFILEHEADER bmpFileHeader;							
@@ -48,14 +48,14 @@ BOOL CBitmapTexture::SaveBitmap(char* lpszFileName, BYTE *bmpColorBuffers, UINT 
 	}
 
 	fwrite( &bmpFileHeader, sizeof(BITMAPFILEHEADER), 1, pStream );
-	fwrite( bmpInfoHeader, sizeof(BITMAPINFOHEADER), 1, pStream );
-	fwrite( (LPBYTE) bmpColorBuffers, bmpInfoHeader->biSizeImage, 1, pStream );
+	fwrite( bmpHeader, sizeof(BITMAPINFOHEADER), 1, pStream );
+	fwrite( (LPBYTE) bmpColorBuffers, bmpHeader->biSizeImage, 1, pStream );
 
 	fclose(pStream);
 
 	pStream = 0;
 
-	delete [] bmpInfoHeader;   
+	delete [] bmpHeader;   
 
 	return TRUE;    
 }
