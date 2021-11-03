@@ -1,7 +1,13 @@
 #include ".\bitmaptexture.h"
+#include "Common.h"
 
 BOOL CBitmapTexture::SaveBitmap(char* lpszFileName, BYTE *bmpColorBuffers, UINT uiWidth, int uiHeight)
 {
+#if MEMORY_LEAK_DETECT_TEST
+	int* numbers = new int[10];
+	double* doublenumber = new double;
+#endif // MEMORY_LEAK_DETECT_TEST
+
 	DWORD dwSizeImage;
 
 	//int nColorTableEntries = 256;
@@ -95,8 +101,6 @@ BOOL CBitmapTexture::Initialize( const char* szFileName, UINT uiWidth, UINT uiHe
 	if (FALSE == resolutionCheck) { return FALSE; }
 
 	_arbyColor = new BYTE[_uiBitmapBufferSize];
-	
-
 	_filledUpByteColor = TRUE;
 
 	NamingBitmapFile(szFileName, _szBmpFileName);

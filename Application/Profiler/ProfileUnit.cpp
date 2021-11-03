@@ -1,4 +1,5 @@
 #include ".\profileunit.h"
+#include "..\Common.h"
 
 CProfileUnit::CProfileUnit()
 {

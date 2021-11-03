@@ -27,5 +27,16 @@ inline BOOL		ISNULL( T* t )
 	return FALSE;
 };
 
+/// CRT_DBG
+#define MEMORY_LEAK_DETECT_TEST 1
 
+#if MEMORY_LEAK_DETECT_TEST
+#include <stdlib.h>
+#include <crtdbg.h>
+
+#ifdef _DEBUG
+#define new new( _NORMAL_BLOCK, __FILE__, __LINE__ ) 
+#define malloc(s) _malloc_dbg(s, _NORMAL_BLOCK, __FILE__, __LINE__)
+#endif
+#endif // MEMORY_LEAK_DETECT_TEST
 

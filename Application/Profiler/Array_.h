@@ -1,5 +1,7 @@
 #pragma once
 
+#include "..\Common.h"
+
 #include "assert.h"
 #define _DEBUG_BREAK_IF( _CONDITION_ ) assert( !(_CONDITION_) );
 
@@ -26,7 +28,7 @@ public:
 	//! Allocate memory for an CArray_ of objects
 	T* allocate(size_t cnt)
 	{
-		return (T*)internal_new(cnt* sizeof(T));
+		return (T*)malloc (cnt * sizeof(T));
 	}
 
 	//! Deallocate memory for an CArray_ of objects
@@ -50,10 +52,10 @@ public:
 
 protected:
 
-	virtual void* internal_new(size_t cnt)
+	/*virtual void* internal_new(size_t cnt)
 	{
 		return operator new(cnt);
-	}
+	}*/
 
 	virtual void internal_delete(void* ptr)
 	{

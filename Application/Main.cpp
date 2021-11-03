@@ -5,19 +5,12 @@
 #include "VarianceHelper.h"
 #include "Profiler/Profiler.h"
 
-/// CRT_DBG
-#define CRTDBG_MAP_ALLOC
-#include <stdlib.h>
-#include <crtdbg.h>
-
-#ifdef _DEBUG
-#define new new( _NORMAL_BLOCK, __FILE__, __LINE__ ) 
-#endif
-
 int main()
 {
+#if MEMORY_LEAK_DETECT_TEST
 	_CrtSetDbgFlag ( _CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF );
-	//_CrtSetBreakAlloc( 160 );
+	_CrtSetBreakAlloc(188);
+#endif // MEMORY_LEAK_DETECT_TEST
 
 	const UINT colorRange = 255;
 	int textureResolution = -1;
@@ -146,9 +139,12 @@ int main()
 		delete[] varianceTable;
 	} 
 
-	/*string outputMemoryLeaks = "Memory Leak? " 
-	+ std::to_string(static_cast<LONGLONG>(_CrtDumpMemoryLeaks()));
-	MessageBox(NULL, outputMemoryLeaks.c_str(), "MemoryLeak", MB_OK);*/
+#if MEMORY_LEAK_DETECT_TEST
+	int dumpMemoryLeaks = _CrtDumpMemoryLeaks();
+	string outputMemoryLeaks = "Memory Leak? " 
+	+ std::to_string(static_cast<LONG>(dumpMemoryLeaks));
+	MessageBox(NULL, outputMemoryLeaks.c_str(), "MemoryLeak", MB_OK);
+#endif // MEMORY_LEAK_DETECT_TEST
 
 	return EXIT_SUCCESS;
 }
